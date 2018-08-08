@@ -1,21 +1,23 @@
 <template name="list-item-theme_default">
   <view wx:for="{{render_list}}" wx:key="{{item}}" class="list-item" id="card-{{item}}">
     <view class="list-box {{content_list[item]._expandStatus  ? 'is-expand' : ''}}" style="background-color:{{content_list[item]._background}}" data-card-id="{{content_list[item].id}}" bindtap="onBrickItemTap">
-      <view class="list-box_header" catchtap="onUserAreaTap" data-user-id="{{content_list[item].user.userId}}">
-        <view wx:if="{{content_list[item].user.avatar}}"  class="user-avatar" style="background-image:url('{{content_list[item].user.avatar}}')"></view>
+      <view class="list-box_header" wx:if="{{content_list[item].user}}" catchtap="{{content_list[item].user.userId ? 'onUserAreaTap' : ''}}" data-user-id="{{content_list[item].user.userId}}">
+        <view wx:if="{{content_list[item].user.avatar}}" class="user-avatar" style="background-image:url('{{content_list[item].user.avatar}}')"></view>
         <view class="user-info">
-          <view  wx:if="{{content_list[item].user.username}}" class="user-name">{{content_list[item].user.username}}</view>
-          <view wx:if="{{content_list[item]._dateTime}}" class="time">{{content_list[item]._dateTime}}</view>
+          <view wx:if="{{content_list[item].user.username}}" class="user-name">
+            {{content_list[item].user.username}}
+          </view>
+          <view wx:if="{{content_list[item]._dateTime}}" class="time">
+            {{content_list[item]._dateTime}}
+          </view>
         </view>
       </view>
-      <view class="list-box_content">
-        {{content_list[item].content}}
-      </view>
+      <view class="list-box_content">{{content_list[item].content}}</view>
       <view class="list-box_footer">
-        <view wx:if="{{content_list[item].likeCount === 0 || content_list[item].likeCount}}" class="approve-btn" catchtap="{{!content_list[item].alreadyLike ? 'onLikeButtonTap' : ''}}" data-comment-id="{{item}}">
+        <view wx:if="{{content_list[item].likedCount === 0 || content_list[item].likedCount}}" class="approve-btn" catchtap="{{!content_list[item].liked ? 'onLikeButtonTap' : ''}}" data-comment-id="{{item}}">
           <!-- <image class="approve-btn-icon" src="{{content_list[item].like_icon}}" /> -->
           <image class="approve-btn-icon" src="{{content_list[item]._likeIcon}}" />
-          {{content_list[item].likeCount}}
+          {{content_list[item].likedCount}}
         </view>
         <view wx:if="{{!defaultExpandStatus}}" class="expand-btn" catchtap='_toggleExpand' data-card-id="{{content_list[item].id}}">
           {{ content_list[item]._expandStatus ? '收起' : '展开'}}

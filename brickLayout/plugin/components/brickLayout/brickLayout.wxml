@@ -1,7 +1,7 @@
 <!--plugin/components/brickLayout.wxml-->
 
 <import src="../tpl/tpl-default.wxml"/>
-<import src="../tpl/tpl-ablum.wxml"/>
+<import src="../tpl/tpl-album.wxml"/>
 
 <view wx:if="{{renderList.length>0}}"  class="list-container">
    <view wx:for="{{renderList}}" wx:key="{{index}}" wx:for-item="column" class="list-side-box">
