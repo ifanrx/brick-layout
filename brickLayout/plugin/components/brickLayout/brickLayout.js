@@ -46,7 +46,10 @@ Component({
 
             item._height = rawData[item["id"]]._height
             item._expandStatus = rawData[item["id"]]._expandStatus
-
+            item._background = rawData[item["id"]]._background
+            item._dateTime = rawData[item["id"]]._dateTime
+            item._rendered = rawData[item["id"]]._rendered
+            
           } else {
             item._background =
               item.backgroundColor || backgroundColor || this._getRandomColor();
