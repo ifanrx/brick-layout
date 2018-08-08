@@ -37,7 +37,6 @@
 * **dataSet**
 	* **类型：**  `Array<Object>`
 	* **类别：** required 必填参数
-	*
 	* **示例值说明：**
 		* **id**  
 			*  数据每条记录的唯一标志
@@ -91,18 +90,18 @@
 	* **类型：** `Object`
 	* **类别：** optional 选填参数
 	* **示例值说明：**
-	* **defaultExpandStatus**
-		* (optional) 卡片默认展开情况， 默认值为 false ，即为默认收起
-	* **backgroundColor**
-		* (optional) 每个卡片默认统一的颜色 ，无默认值，卡片随机色，如果已经设置了卡片的颜色，优先使用卡片颜色，即优先级：`card.backgroundColor` > `**backgoundColor**` > `randomColor`
-	* **forceRepaint**
-		* (optional) 是否强制重绘，强制重绘则会使原来的展开状态、高度等等全部重置，适用于切换列表的分类时，数据重新渲染。默认值为 `false`，即默认认为源数据的改变只是追加、变更或者减少数据时，不重置卡片的展开状态和高度等等。
+	    * **defaultExpandStatus**
+	    	* (optional) 卡片默认展开情况， 默认值为 false ，即为默认收起
+	    * **backgroundColor**
+	    	* (optional) 每个卡片默认统一的颜色 ，无默认值，卡片随机色，如果已经设置了卡片的颜色，优先使用卡片颜色，即优先级：`card.backgroundColor` > `**backgoundColor**` > `randomColor`
+	    * **forceRepaint**
+		    * (optional) 是否强制重绘，强制重绘则会使原来的展开状态、高度等等全部重置，适用于切换列表的分类时，数据重新渲染。默认值为 `false`，即默认认为源数据的改变只是追加、变更或者减少数据时，不重置卡片的展开状态和高度等等。
 	*  **示例值：**
 ```js
 {
- 	defaultExpandStatus: ? bool | false,
- 	backgroundColor: ? string | '#ababab',
- 	forceRepaint: ? bool | false
+ defaultExpandStatus: ? bool | false,
+ ackgroundColor: ? string | '#ababab',
+ forceRepaint: ? bool | false
 }
 ```
 ---
