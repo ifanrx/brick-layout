@@ -5,14 +5,14 @@
   ![组件示例](brickLayout/doc/demo.png)
 
 ### 使用
-1. 在微信小程序管理后台中，按 APPID `wxc4d0500e36129bd6` 搜索到该插件，点击添加，即可在代码中使用 `brickLayout`。
+1. 在微信小程序管理后台中，按 APPID `wx3c042630f3cdc175` 搜索到该插件，点击添加，即可在代码中使用 `brickLayout`。
 
 2. 在 `app.json` 里，声明该插件的引入，目前该插件为`0.1.0`，`provider`为该插件的 APPID，`brickLayout`为自定义的插件名称。
 ```json
 "plugins": {
   "brickLayout": {
     "version": "0.1.0",
-    "provider": "wxc4d0500e36129bd6"
+    "provider": "wx3c042630f3cdc175"
   }
 }
 ```
