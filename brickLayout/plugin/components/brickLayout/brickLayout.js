@@ -1,13 +1,15 @@
 import { utils } from "../../src/utils"
 import tpl from "../tpl/tpl"
 
+const DEFAULT_HEIGHT = 182
+
 let LikeIcon = {
   like: "../../asset/icon/icon-like-full.svg",
   default: "../../asset/icon/icon-like.svg"
-};
-
+}
 let init = true
 let columns = 2 
+
 Component({
   data: {
     list: [],
@@ -29,7 +31,6 @@ Component({
         let { rawData } = this.data
         let dataSet = {}
         let orderArr = []
-
         let {
           option: { backgroundColor, forceRepaint, defaultExpandStatus }
         } = this.properties
@@ -37,6 +38,18 @@ Component({
         if(!Array.isArray(newVal)){
           throw new Error(
             "BrickLayout : dataSet is expecting a Array."
+          )
+        }
+
+        if(defaultExpandStatus && typeof(defaultExpandStatus) !== 'boolean'){
+          throw new Error(
+            "BrickLayout : option.defaultExpandStatus is expecting a Bool."
+          )
+        }
+
+        if(forceRepaint && typeof(forceRepaint) !== 'boolean'){
+          throw new Error(
+            "BrickLayout : option.forceRepaint is expecting a Bool."
           )
         }
 
@@ -49,22 +62,20 @@ Component({
         newVal.forEach(item => {
           // 当不强制重排，且已经有该数据源
           if (!forceRepaint && rawData[item["id"]]) {
-
             item._height = rawData[item["id"]]._height
             item._expandStatus = rawData[item["id"]]._expandStatus
             item._background = rawData[item["id"]]._background
             item._dateTime = rawData[item["id"]]._dateTime
             item._rendered = rawData[item["id"]]._rendered
-
           } else {
             item._background =
               item.backgroundColor || backgroundColor || this._getRandomColor()
             item._dateTime = item.time ? utils.relativeTime(item.time) : ''
             item._rendered = false
-            item._height = item.height ? item.height : 182 // 非 0 即可
+            item._height = DEFAULT_HEIGHT 
             item._expandStatus = item.expandStatus
               ? item.expandStatus
-              : !!defaultExpandStatus // 默认展开状态
+              : defaultExpandStatus // 默认展开状态
           }
 
           if (!!item.liked) {
@@ -131,7 +142,7 @@ Component({
       if (init) {
         init = false
         //Todo: 默认展开，1. 计算每一个的高度，并记录 高度 2.计算 render 数组 
-        if (!!defaultExpandStatus) {
+        if (defaultExpandStatus) {
           orderArr.forEach(item => {
             height.push(this._computeSingleCardHeight(item))
           });
@@ -154,7 +165,6 @@ Component({
           });
         }
       } else {
-
         let card_id = opt && opt.id ? opt.id : 0
         if (card_id) {
           // 计算单个
@@ -172,7 +182,6 @@ Component({
               height.push(this._computeSingleCardHeight(item))
             }
           })
-
           Promise.all(height).then(res => {
             res.forEach(item => {
               rawData[item.card_id]["_height"] = item.height
@@ -182,7 +191,6 @@ Component({
           })
         }
       }
-
     },
 
     /**
@@ -198,7 +206,6 @@ Component({
         { rawData },
         this._computeCardHeight.bind(this, { id: card_id })
       )
-
       this.triggerEvent('onCardExpanded',{card_id,expand_status: rawData[card_id]["_expandStatus"] })
     },
 
@@ -207,7 +214,6 @@ Component({
       let heightArr = []
       const arrLength = columns
       const { orderArr, rawData } = this.data
-
       heightArr = Array(arrLength).fill(0)
 
       // initial render Arr

@@ -1,7 +1,7 @@
 import dateUtil from '../lib/ifanrx-npm/date'
 
 const relativeTime = function (date) {
-    return dateUtil.dateToRelativeTime(date + '000' - 0)
+    return dateUtil.relativeTime(date)
 }
 
 export const utils = {
