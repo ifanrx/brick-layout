@@ -44,22 +44,30 @@ Page({
     }
   },
 
+  // 改变卡片展开状态事件的回调
+  handleExpand:function(event){
+    console.log(event.detail)
+    console.log("expand call back")
+  },
+
+  // 点击卡片
   tapCard: function (event) {
-    console.log(event)
-    console.log("tap card!");
+    console.log(event.detail)
+    console.log("tap card!")
   },
 
+  // 点赞
   handleLike: function (event) {
-    console.log("like!");
+    console.log(event.detail)
+    console.log("like!")
   },
 
+  // 点击用户头像区域
   handleUserEvent: function (event) {
+    console.log(event.detail)
     console.log('user!')
   },
 
-  onLoad: function () {
-    plugin.getData()
-  },
   onReachBottom: function () {
     console.log("reach bottom")
     this.setData({
