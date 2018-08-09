@@ -2,9 +2,9 @@
 ### 介绍
 		brickLayout 为使用者提供开箱即用的瀑布流布局的一种可行性的方案，使用者仅需要按照对应所需的字段传入瀑布流组件，即可快速实现瀑布流布局。未来的瀑布流组件将会提供更多样式、适用更多场景的瀑布流模板，敬请期待！
 ### 使用
-1. 在微信小程序管理后台中，按 APPID `wxc4d0500e36129bd6` 搜索到该插件，点击添加，即可在代码中使用 `brickLayout`
+1. 在微信小程序管理后台中，按 APPID `wxc4d0500e36129bd6` 搜索到该插件，点击添加，即可在代码中使用 `brickLayout`。
 
-2. 在 `app.json` 里，声明该插件的引入，目前该插件为`0.1.0`，`provider`为该插件的 APPID，`brickLayout`为自定义的插件名称，
+2. 在 `app.json` 里，声明该插件的引入，目前该插件为`0.1.0`，`provider`为该插件的 APPID，`brickLayout`为自定义的插件名称。
 ```json
 "plugins": {
   "brickLayout": {
@@ -23,7 +23,7 @@
 }
 ```
 
-4. 使用
+4. 使用方法
 ```html
 <brickLayout 
 	dataSet="{{dataSet}}"  
@@ -59,7 +59,7 @@
 			* 类型：`bool`
 			* 说明：(optional) 如果需要点赞功能，则需要该变量作为用户是否已经点赞的标志，如果为 false 则代表未点赞，icon 为空心 icon，且可以触发点赞动作；如果为 true 则代表已点赞，icon 为实心 icon，且不可再触发点赞动作。
 		* **user** 
-			* 类型：`object`
+			* 类型：`Object`
 			* 说明：(optional) 如果不传，则不显示卡片用户区
 				* 类型：`string`  (optional param) `avatar`  用户头像 url 如果不填默认没有头像
 				* 类型：`string`  (optional param) `username`   用户名 如果不填默认没有用户名
@@ -140,7 +140,7 @@
 ```js
  tapCard: function (event) {
 	  const cardId =  event.detail.card_id
-	// code here.
+		// code here.
     console.log('tap card!')
   },
 ```
@@ -154,7 +154,7 @@
 ```js
  handleLike: function (event) {
 	  const cardId =  event.detail.card_id
-	// code here.
+		// code here.
     console.log('tap like!')
   },
 ```
@@ -168,7 +168,7 @@
 ```js
  handleUserEvent: function (event) {
 	  const userId =  event.detail.user_id
-	// code here.
+		// code here.
     console.log('tap user!')
   },
 ```
@@ -183,7 +183,7 @@
  handleExpand:function(event){
     const cardId =  event.detail.card_id
 	  const expandStatus =  event.detail.expand_status
-	// code here
+		// code here
     console.log("expand call back")
   },
 ```
