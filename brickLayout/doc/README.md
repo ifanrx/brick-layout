@@ -2,7 +2,7 @@
 ### 介绍
   brickLayout 为使用者提供开箱即用的瀑布流布局的一种可行性的方案，使用者仅需要按照对应所需的字段传入瀑布流组件，即可快速实现瀑布流布局。未来的瀑布流组件将会提供更多样式、适用更多场景的瀑布流模板，敬请期待！
 
-  ![组件示例](brickLayout/doc/demo.png)
+  ![组件示例](demo.png)
 
 ### 使用
 1. 在微信小程序管理后台中，按 APPID `wx3c042630f3cdc175` 搜索到该插件，点击添加，即可在代码中使用 `brickLayout`。
@@ -102,15 +102,15 @@
 	* **类型：** `Object`
 	* **类别：** optional 选填参数
 	* **示例值说明：**
-	  * **defaultExpandStatus**
-		  * 类型： `bool`
-		  * 说明： (optional) 卡片默认展开情况，默认值为 `false` ，即为默认收起
-	  * **backgroundColor**
-		  * 类型：`string`
-		  * 说明： (optional) 每个卡片默认统一的颜色，如果已经设置了卡片的颜色，优先使用卡片颜色；如果既没有卡片颜色，也没有设置全局背景色，则默认为随机色。即优先级：`card.backgroundColor` > `backgoundColor` > `randomColor`
-	  * **forceRepaint**
-		  * 类型： `bool`
-		   * 说明： (optional) 是否强制重绘，强制重绘则会使原来的展开状态、高度等等全部重置，数据重新渲染。默认值为 `false`，即默认认为源数据的改变只是追加、变更或者减少数据时，不重置卡片的展开状态和高度等等。
+	    * **defaultExpandStatus**
+		    * 类型： `bool`
+		    * 说明： (optional) 卡片默认展开情况，默认值为 `false` ，即为默认收起
+	    * **backgroundColor**
+		    * 类型：`string`
+		    * 说明： (optional) 每个卡片默认统一的颜色，如果已经设置了卡片的颜色，优先使用卡片颜色；如果既没有卡片颜色，也没有设置全局背景色，则默认为随机色。即优先级：`card.backgroundColor` > `backgoundColor` > `randomColor`
+	    * **forceRepaint**
+		    * 类型： `bool`
+		    * 说明： (optional) 是否强制重绘，强制重绘则会使原来的展开状态、高度等等全部重置，数据重新渲染。默认值为 `false`，即默认认为源数据的改变只是追加、变更或者减少数据时，不重置卡片的展开状态和高度等等。
 	*  **示例值：**
 ```js
 {
@@ -135,7 +135,7 @@
 
 * **用户点击区域说明**
 
-![卡片结构说明](brickLayout/doc/sample.jpg)
+![卡片结构说明](sample.jpg)
 
 * **tapCard**
 	* **类型：** `function`

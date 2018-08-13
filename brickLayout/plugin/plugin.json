@@ -1,0 +1,6 @@
+{
+  "publicComponents": {
+    "brickLayout": "components/brickLayout/brickLayout"
+  },
+  "main": "index.js"
+}

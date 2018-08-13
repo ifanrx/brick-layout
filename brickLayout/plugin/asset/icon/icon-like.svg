@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 50 (54983) - http://www.bohemiancoding.com/sketch -->
+    <title>lab_like_16x16</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="lab_like_16x16" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="点赞">
+            <rect id="Rectangle-19" stroke="#979797" fill="#D8D8D8" opacity="0" x="0.5" y="0.5" width="15" height="15"></rect>
+            <g id="Group-9" fill="#FFFFFF">
+                <rect id="Rectangle" x="3.2" y="6.4" width="1.48571423" height="9.6"></rect>
+                <path d="M1.2,6.8 L1.2,14.8 L12.6453849,14.8 L14.4915387,6.8 L9.04652385,6.8 L9.04652385,2.12331996 C9.04652385,1.85837823 8.87493001,1.62395075 8.62238164,1.5438668 C8.47187554,1.4961408 8.30925457,1.56695048 8.24166187,1.70964275 L5.83038209,6.8 L1.2,6.8 Z M0,5.6 L5.07099225,5.6 L7.15718124,1.19592906 C7.48170957,0.510830157 8.26249078,0.170856341 8.9851057,0.4 C9.73619601,0.638173302 10.2465238,1.33537125 10.2465238,2.12331996 L10.2465238,5.6 L14.9943591,5.6 C15.4361869,5.6 15.7943591,5.9581722 15.7943591,6.4 C15.7943591,6.46054459 15.7874861,6.52089349 15.7738721,6.57988761 L13.7431029,15.3798876 C13.6593371,15.7428725 13.3361147,16 12.9635899,16 L0,16 L0,5.6 Z" id="Rectangle-26" fill-rule="nonzero"></path>
+            </g>
+        </g>
+    </g>
+</svg>

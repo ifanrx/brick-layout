@@ -1,0 +1,11 @@
+{
+	"miniprogramRoot": "./miniprogram",
+	"pluginRoot": "./plugin",
+	"compileType": "plugin",
+	"setting": {
+		"newFeature": true
+	},
+	"appid": "wx3c042630f3cdc175",
+	"projectname": "brick-layout",
+	"condition": {}
+}

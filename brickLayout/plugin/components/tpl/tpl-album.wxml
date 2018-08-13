@@ -1,0 +1,34 @@
+
+<template name="list-item-theme_album">
+  <view wx:for="{{render_list}}" wx:key="{{item}}" class="list-item" id="card-{{item}}">
+    <view class="list-box {{content_list[item].expandStatus  ? 'is-expand' : ''}}" style="background-color:{{content_list[item].background}}" data-card-id="{{content_list[item].id}}" bindtap="onBrickItemClick">
+      <view class="list-box_header">
+        <view class="user-avatar" style="background-image:url('{{content_list[item].created_by.avatar}}')"></view>
+        <view class="user-info">
+          <view class="user-name">{{content_list[item].created_by.nickname}}</view>
+          <view class="time">{{content_list[item].dateTime}}</view>
+        </view>
+      </view>
+      <view class="list-box_content">
+        {{content_list[item].text}}
+      </view>
+      <view class="list-box_footer">
+        <view class="approve-btn" bindtap="{{!content_list[item].alreadyUpvote ? 'handleApprove' : ''}}" data-comment-id="{{item}}">
+          <!-- <image class="approve-btn-icon" src="{{content_list[item].like_icon}}" /> -->
+          <image class="approve-btn-icon" src="{{content_list[item].likeIcon}}" />
+          {{content_list[item].like_count}}
+        </view>
+        <view wx:if="{{!defaultExpandStatus}}" class="expand-btn" bindtap='toggleExpand' data-card-id="{{content_list[item].id}}">
+          {{ content_list[item].expandStatus ? '收起' : '展开'}}
+        </view>
+      </view>
+    </view>
+  </view>
+</template>
+
+<!-- images-viewer -->
+<template name="images-viewer">
+  <view wx:if="{{ !!images && !!images.length}}" class="media-previewer">
+    <image wx:for="{{ images }}" wx:key="{{images}}" src="{{item}}" mode="aspectFill" data-images="{{images}}" data-current-image="{{item}}" bindtap="imgPreviewer"></image>
+  </view>
+</template>

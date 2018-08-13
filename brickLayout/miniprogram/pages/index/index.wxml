@@ -1,0 +1,7 @@
+<brick-layout 
+    dataSet="{{dataSet}}"  
+    option="{{brick_option}}" 
+    bind:tapCard="tapCard" 
+    bind:tapLike="handleLike" 
+    bind:tapUser="handleUserEvent" 
+    bind:onCardExpanded="handleExpand"/>
