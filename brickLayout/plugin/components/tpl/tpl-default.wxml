@@ -14,7 +14,7 @@
       </view>
       <view class="list-box_content">{{content_list[item].content}}</view>
       <view class="list-box_footer">
-        <view wx:if="{{content_list[item].likedCount === 0 || content_list[item].likedCount}}" class="approve-btn" catchtap="{{!content_list[item].liked ? 'onLikeButtonTap' : ''}}" data-comment-id="{{item}}">
+        <view wx:if="{{content_list[item].likedCount === 0 || content_list[item].likedCount}}" class="approve-btn" catchtap="{{!content_list[item].liked ? 'onLikeButtonTap' : ''}}" data-card-id="{{item}}">
           <!-- <image class="approve-btn-icon" src="{{content_list[item].like_icon}}" /> -->
           <image class="approve-btn-icon" src="{{content_list[item]._likeIcon}}" />
           {{content_list[item].likedCount}}

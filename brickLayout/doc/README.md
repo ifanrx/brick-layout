@@ -7,7 +7,7 @@
 ### 使用
 1. 在微信小程序管理后台中，按 APPID `wx3c042630f3cdc175` 搜索到该插件，点击添加，即可在代码中使用 `brickLayout`。
 
-2. 在 `app.json` 里，声明该插件的引入，目前该插件为`0.1.0`，`provider`为该插件的 APPID，`brickLayout`为自定义的插件名称。
+2. 在 `app.json` 里，声明该插件的引入，目前该插件为`0.1.1`，`provider`为该插件的 APPID，`brickLayout`为自定义的插件名称。
 ```json
 "plugins": {
   "brickLayout": {
@@ -27,7 +27,7 @@
 ```
 
 4. 使用方法
-```html
+```xml
 <brickLayout 
   dataSet="{{dataSet}}"  
   option="{{brick_option}}" 
@@ -122,7 +122,7 @@
 ---
 ### 组件事件介绍
 如调用的组件的 wxml 声明如下：
-```html
+```xml
 <brickLayout 
   dataSet="{{dataSet}}"  
   option="{{brick_option}}" 

@@ -7,7 +7,7 @@
 ### 使用
 1. 在微信小程序管理后台中，按 APPID `wx3c042630f3cdc175` 搜索到该插件，点击添加，即可在代码中使用 `brickLayout`。
 
-2. 在 `app.json` 里，声明该插件的引入，目前该插件为`0.1.0`，`provider`为该插件的 APPID，`brickLayout`为自定义的插件名称。
+2. 在 `app.json` 里，声明该插件的引入，目前该插件为`0.1.1`，`provider`为该插件的 APPID，`brickLayout`为自定义的插件名称。
 ```json
 "plugins": {
   "brickLayout": {
@@ -27,7 +27,7 @@
 ```
 
 4. 使用方法
-```html
+```xml
 <brickLayout 
   dataSet="{{dataSet}}"  
   option="{{brick_option}}" 
@@ -102,15 +102,15 @@
 	* **类型：** `Object`
 	* **类别：** optional 选填参数
 	* **示例值说明：**
-	    * **defaultExpandStatus**
-		    * 类型： `bool`
-		    * 说明： (optional) 卡片默认展开情况，默认值为 `false` ，即为默认收起
-	    * **backgroundColor**
-		    * 类型：`string`
-		    * 说明： (optional) 每个卡片默认统一的颜色，如果已经设置了卡片的颜色，优先使用卡片颜色；如果既没有卡片颜色，也没有设置全局背景色，则默认为随机色。即优先级：`card.backgroundColor` > `backgoundColor` > `randomColor`
-	    * **forceRepaint**
-		    * 类型： `bool`
-		    * 说明： (optional) 是否强制重绘，强制重绘则会使原来的展开状态、高度等等全部重置，数据重新渲染。默认值为 `false`，即默认认为源数据的改变只是追加、变更或者减少数据时，不重置卡片的展开状态和高度等等。
+	  * **defaultExpandStatus**
+		  * 类型： `bool`
+		  * 说明： (optional) 卡片默认展开情况，默认值为 `false` ，即为默认收起
+	  * **backgroundColor**
+		  * 类型：`string`
+		  * 说明： (optional) 每个卡片默认统一的颜色，如果已经设置了卡片的颜色，优先使用卡片颜色；如果既没有卡片颜色，也没有设置全局背景色，则默认为随机色。即优先级：`card.backgroundColor` > `backgoundColor` > `randomColor`
+	  * **forceRepaint**
+		  * 类型： `bool`
+		   * 说明： (optional) 是否强制重绘，强制重绘则会使原来的展开状态、高度等等全部重置，数据重新渲染。默认值为 `false`，即默认认为源数据的改变只是追加、变更或者减少数据时，不重置卡片的展开状态和高度等等。
 	*  **示例值：**
 ```js
 {
@@ -122,7 +122,7 @@
 ---
 ### 组件事件介绍
 如调用的组件的 wxml 声明如下：
-```html
+```xml
 <brickLayout 
   dataSet="{{dataSet}}"  
   option="{{brick_option}}" 
