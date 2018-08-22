@@ -119,9 +119,7 @@ Component({
 
         this.setData(
           {rawData: dataSet, orderArr, _defaultExpandStatus: !!defaultExpandStatus},
-          setTimeout(() => {
-            this._getRenderList(true)
-          }, 200)
+          this._getRenderList.bind(this, true)
         )
         tpl.init.call(this)
       }
@@ -152,6 +150,7 @@ Component({
       let {rawData, orderArr} = this.data
 
       let height = []
+      height.length = 0
 
       if (!orderArr || !orderArr.length) {
         // 如果为空数组则无需计算
