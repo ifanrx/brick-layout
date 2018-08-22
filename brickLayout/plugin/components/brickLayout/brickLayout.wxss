@@ -29,14 +29,13 @@
 /* list-box themeA */
 .list-box {
   position: relative;
-  padding-bottom: 40px; /* list-box-footer */
+  padding: 8px;
   border-radius: 4px;
   color: #fff;
 }
 
 .list-box_header {
   height: 32px;
-  padding: 8px;
   margin-bottom: 10px;
   overflow: hidden;
 }
@@ -50,11 +49,11 @@
 }
 
 .list-box_header .user-info {
-  float: left;
   font-size: 12px;
   font-weight: bold;
-  margin-left: 12rpx;
+  margin-left: 34px;
 }
+
 .list-box_header .user-info .user-name {
   overflow: hidden;
   text-overflow: ellipsis;
@@ -66,6 +65,11 @@
 .list-box_header .user-info .time {
   font-size: 10px;
   font-weight: 400;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  height: 20px;
 }
 
 .list-box.is-expand .list-box_content {
@@ -73,9 +77,8 @@
 }
 
 .list-box_content {
-  height: 144rpx;
-  min-height: 144rpx;
-  padding: 0 8px;
+  height: 71px;
+  min-height: 71px;
   font-size: 15px;
   line-height: 24px;
   overflow: hidden;
@@ -85,26 +88,23 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 38px;
-  padding: 0 8px;
-  margin-top: 11px;
   font-size: 12px;
 }
 
 .expand-btn {
-  width: 50px;
-  height: 20px;
   line-height: 20px;
   font-size: 12px;
+  margin-top: 16px;
   text-align: right;
 }
 
 .approve-btn {
   font-size: 12px;
+}
+
+.approve-btn .approve-btn_wrapper {
+  margin-top: 16px;
+  min-width: 43px;
 }
 
 .approve-btn .approve-btn-icon {
@@ -117,4 +117,8 @@
   margin-top: 8px;
   width: 100%;
   border-radius: 4px;
+}
+
+.media-previewer image:first-child {
+  margin-top: 0;
 }

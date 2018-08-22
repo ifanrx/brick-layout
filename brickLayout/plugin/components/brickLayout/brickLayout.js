@@ -1,28 +1,73 @@
-import {utils} from '../../src/utils'
+import {utils} from '../../lib/utils'
 import tpl from '../tpl/tpl'
 
 const DEFAULT_HEIGHT = 182
 
-let LikeIcon = {
-  like: '../../asset/icon/icon-like-full.svg',
-  default: '../../asset/icon/icon-like.svg'
-}
 let init = true
 let _columns = 2
-
+let _defaultExpandStatus = false
 Component({
   data: {
     list: [],
     rawData: {}, // 源数据
     orderArr: [], // 记录原始数值
     renderList: [], // 记录用于渲染的数组排序
-    tplName: 'default',
+    _tplName: 'default',
     _defaultExpandStatus: false,
-    _imageFillMode: 'widthFix' // 图片适配 mode
+    _imageFillMode: 'widthFix', // 图片适配 mode
+    _fontColor: 'black',
+    _likeIcon: {
+      like: '../../asset/icon/icon-like-full.svg',
+      default: '../../asset/icon/icon-like.svg'
+    },
+    _limitContent: true
   },
 
   // properties list
   properties: {
+    // optional
+    // optional | default: { }
+    option: {
+      type: Object,
+      value: {},
+      observer: function(newVal) {
+        let {imageFillMode, columns, theme, Icon, showFullContent, defaultExpandStatus} = newVal
+        let {_tplName, _likeIcon} = this.data
+
+        if (!!imageFillMode) {
+          this.setData({_imageFillMode: imageFillMode})
+        }
+
+        if (!!columns) {
+          _columns = columns
+        }
+
+        if (!!theme) {
+          switch (theme) {
+            case 'album':
+              _tplName = 'album'
+              _defaultExpandStatus = true
+              break
+            default:
+              _tplName = 'default'
+              _defaultExpandStatus = !!defaultExpandStatus
+              break
+          }
+          this.setData({_tplName})
+        }
+
+        if (!!Icon) {
+          if (!!Icon.fill) {
+            _likeIcon.like = Icon.fill
+          }
+          if (!!Icon.default) {
+            _likeIcon.default = Icon.default
+          }
+          this.setData({_likeIcon})
+        }
+        this.setData({_limitContent: !showFullContent})
+      }
+    },
     // raw dataset
     // required
     dataSet: {
@@ -40,17 +85,12 @@ Component({
           throw new Error('BrickLayout : dataSet is expecting a Array.')
         }
 
-        if (defaultExpandStatus && typeof defaultExpandStatus !== 'boolean') {
-          throw new Error('BrickLayout : option.defaultExpandStatus is expecting a Bool.')
-        }
-
         if (forceRepaint && typeof forceRepaint !== 'boolean') {
           throw new Error('BrickLayout : option.forceRepaint is expecting a Bool.')
         }
 
         newVal.forEach(item => {
-
-          if(!item['id']){
+          if (!item['id']) {
             throw new Error('BrickLayout : 错误的唯一索引。请检查数组中是否含有 id 作为唯一记录标识。')
           }
 
@@ -69,39 +109,21 @@ Component({
             item._expandStatus = item.expandStatus ? item.expandStatus : defaultExpandStatus // 默认展开状态
           }
 
-          if (!!item.liked) {
-            item._likeIcon = LikeIcon.like
-          } else {
-            item._likeIcon = LikeIcon.default
+          if (item.likedCount) {
+            item.likedCount = item.likedCount > 99 ? '99+' : item.likedCount
           }
-          dataSet[item['id']] = item // 源数据
 
+          dataSet[item['id']] = item // 源数据
           orderArr.push(item['id'])
         })
 
         this.setData(
           {rawData: dataSet, orderArr, _defaultExpandStatus: !!defaultExpandStatus},
-          this._getRenderList.bind(this, true)
+          setTimeout(() => {
+            this._getRenderList(true)
+          }, 200)
         )
         tpl.init.call(this)
-      }
-    },
-
-    // optional
-    // optional | default: { }
-    option: {
-      type: Object,
-      value: {},
-      observer: function(newVal) {
-        let {imageFillMode, columns} = newVal
-
-        if (!!imageFillMode) {
-          this.setData({_imageFillMode: imageFillMode})
-        }
-
-        if (!!columns) {
-          _columns = columns
-        }
       }
     }
   },
@@ -128,9 +150,7 @@ Component({
     _computeCardHeight(opt) {
       // 默认展开
       let {rawData, orderArr} = this.data
-      let {
-        option: {defaultExpandStatus}
-      } = this.properties
+
       let height = []
 
       if (!orderArr || !orderArr.length) {
@@ -141,29 +161,16 @@ Component({
 
       if (init) {
         init = false
-        //Todo: 默认展开，1. 计算每一个的高度，并记录 高度 2.计算 render 数组
-        if (defaultExpandStatus) {
-          orderArr.forEach(item => {
-            height.push(this._computeSingleCardHeight(item))
+        orderArr.forEach(item => {
+          height.push(this._computeSingleCardHeight(item))
+        })
+        Promise.all(height).then(res => {
+          res.forEach(item => {
+            rawData[item.card_id]['_height'] = item.height
+            rawData[item.card_id]['_rendered'] = true
           })
-          Promise.all(height).then(res => {
-            res.forEach(item => {
-              rawData[item.card_id]['_height'] = item.height
-              rawData[item.card_id]['_rendered'] = true
-            })
-            this.setData({rawData}, this._getRenderList)
-          })
-        } else {
-          //Todo : 1. 计算单个高度，并记录 高度、展开状态 2.不需要 computeRender
-          let card_id = opt && opt.id ? opt.id : this.data.orderArr[0]
-          this._computeSingleCardHeight(card_id).then(res => {
-            orderArr.forEach(item => {
-              rawData[item]['_height'] = res.height
-              rawData[item]['_rendered'] = true
-            })
-            this.setData({rawData})
-          })
-        }
+          this.setData({rawData}, this._getRenderList)
+        })
       } else {
         let card_id = opt && opt.id ? opt.id : 0
         if (card_id) {
