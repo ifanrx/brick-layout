@@ -1,14 +1,14 @@
-import { utils } from "../../src/utils"
-import tpl from "../tpl/tpl"
+import {utils} from '../../src/utils'
+import tpl from '../tpl/tpl'
 
 const DEFAULT_HEIGHT = 182
 
 let LikeIcon = {
-  like: "../../asset/icon/icon-like-full.svg",
-  default: "../../asset/icon/icon-like.svg"
+  like: '../../asset/icon/icon-like-full.svg',
+  default: '../../asset/icon/icon-like.svg'
 }
 let init = true
-let columns = 2
+let _columns = 2
 
 Component({
   data: {
@@ -16,8 +16,9 @@ Component({
     rawData: {}, // 源数据
     orderArr: [], // 记录原始数值
     renderList: [], // 记录用于渲染的数组排序
-    tplName: "default",
-    _defaultExpandStatus: false
+    tplName: 'default',
+    _defaultExpandStatus: false,
+    _imageFillMode: 'widthFix' // 图片适配 mode
   },
 
   // properties list
@@ -28,40 +29,41 @@ Component({
       type: Array,
       value: [],
       observer: function(newVal) {
-        let { rawData } = this.data
+        let {rawData} = this.data
         let dataSet = {}
         let orderArr = []
         let {
-          option: { backgroundColor, forceRepaint, defaultExpandStatus }
+          option: {backgroundColor, forceRepaint, defaultExpandStatus}
         } = this.properties
 
         if (!Array.isArray(newVal)) {
-          throw new Error("BrickLayout : dataSet is expecting a Array.")
+          throw new Error('BrickLayout : dataSet is expecting a Array.')
         }
 
-        if (defaultExpandStatus && typeof defaultExpandStatus !== "boolean") {
-          throw new Error("BrickLayout : option.defaultExpandStatus is expecting a Bool.")
+        if (defaultExpandStatus && typeof defaultExpandStatus !== 'boolean') {
+          throw new Error('BrickLayout : option.defaultExpandStatus is expecting a Bool.')
         }
 
-        if (forceRepaint && typeof forceRepaint !== "boolean") {
-          throw new Error("BrickLayout : option.forceRepaint is expecting a Bool.")
-        }
-
-        if (newVal[0] && !newVal[0]["id"]) {
-          throw new Error("BrickLayout : 错误的唯一索引。请检查数组中是否含有 id 作为唯一记录标识。")
+        if (forceRepaint && typeof forceRepaint !== 'boolean') {
+          throw new Error('BrickLayout : option.forceRepaint is expecting a Bool.')
         }
 
         newVal.forEach(item => {
+
+          if(!item['id']){
+            throw new Error('BrickLayout : 错误的唯一索引。请检查数组中是否含有 id 作为唯一记录标识。')
+          }
+
           // 当不强制重排，且已经有该数据源
-          if (!forceRepaint && rawData[item["id"]]) {
-            item._height = rawData[item["id"]]._height
-            item._expandStatus = rawData[item["id"]]._expandStatus
-            item._background = rawData[item["id"]]._background
-            item._dateTime = rawData[item["id"]]._dateTime
-            item._rendered = rawData[item["id"]]._rendered
+          if (!forceRepaint && rawData[item['id']]) {
+            item._height = rawData[item['id']]._height
+            item._expandStatus = rawData[item['id']]._expandStatus
+            item._background = rawData[item['id']]._background
+            item._dateTime = rawData[item['id']]._dateTime
+            item._rendered = rawData[item['id']]._rendered
           } else {
             item._background = item.backgroundColor || backgroundColor || this._getRandomColor()
-            item._dateTime = item.time ? utils.relativeTime(item.time) : ""
+            item._dateTime = item.time ? utils.relativeTime(item.time) : ''
             item._rendered = false
             item._height = DEFAULT_HEIGHT
             item._expandStatus = item.expandStatus ? item.expandStatus : defaultExpandStatus // 默认展开状态
@@ -72,12 +74,13 @@ Component({
           } else {
             item._likeIcon = LikeIcon.default
           }
+          dataSet[item['id']] = item // 源数据
 
-          dataSet[item["id"]] = item
-          orderArr.push(item["id"])
+          orderArr.push(item['id'])
         })
+
         this.setData(
-          { rawData: dataSet, orderArr, _defaultExpandStatus: !!defaultExpandStatus },
+          {rawData: dataSet, orderArr, _defaultExpandStatus: !!defaultExpandStatus},
           this._getRenderList.bind(this, true)
         )
         tpl.init.call(this)
@@ -88,7 +91,18 @@ Component({
     // optional | default: { }
     option: {
       type: Object,
-      value: {}
+      value: {},
+      observer: function(newVal) {
+        let {imageFillMode, columns} = newVal
+
+        if (!!imageFillMode) {
+          this.setData({_imageFillMode: imageFillMode})
+        }
+
+        if (!!columns) {
+          _columns = columns
+        }
+      }
     }
   },
 
@@ -100,8 +114,8 @@ Component({
     _computeSingleCardHeight(card_id) {
       return new Promise((resolve, reject) => {
         let query = wx.createSelectorQuery().in(this)
-        query.select("#card-" + card_id).boundingClientRect(res => {
-          resolve({ card_id, height: res.height })
+        query.select('#card-' + card_id).boundingClientRect(res => {
+          resolve({card_id, height: res.height})
         })
         query.exec()
       })
@@ -113,11 +127,18 @@ Component({
      */
     _computeCardHeight(opt) {
       // 默认展开
-      let { rawData, orderArr } = this.data
+      let {rawData, orderArr} = this.data
       let {
-        option: { defaultExpandStatus }
+        option: {defaultExpandStatus}
       } = this.properties
       let height = []
+
+      if (!orderArr || !orderArr.length) {
+        // 如果为空数组则无需计算
+        console.warn('BrickLayout: Oops, empty array ? ')
+        return
+      }
+
       if (init) {
         init = false
         //Todo: 默认展开，1. 计算每一个的高度，并记录 高度 2.计算 render 数组
@@ -127,20 +148,20 @@ Component({
           })
           Promise.all(height).then(res => {
             res.forEach(item => {
-              rawData[item.card_id]["_height"] = item.height
-              rawData[item.card_id]["_rendered"] = true
+              rawData[item.card_id]['_height'] = item.height
+              rawData[item.card_id]['_rendered'] = true
             })
-            this.setData({ rawData }, this._getRenderList)
+            this.setData({rawData}, this._getRenderList)
           })
         } else {
           //Todo : 1. 计算单个高度，并记录 高度、展开状态 2.不需要 computeRender
           let card_id = opt && opt.id ? opt.id : this.data.orderArr[0]
           this._computeSingleCardHeight(card_id).then(res => {
             orderArr.forEach(item => {
-              rawData[item]["_height"] = res.height
-              rawData[item]["_rendered"] = true
+              rawData[item]['_height'] = res.height
+              rawData[item]['_rendered'] = true
             })
-            this.setData({ rawData })
+            this.setData({rawData})
           })
         }
       } else {
@@ -149,27 +170,38 @@ Component({
           // 计算单个
           this._computeSingleCardHeight(card_id).then(res => {
             let currentHeight = res.height
-            if (currentHeight !== rawData[card_id]["_height"]) {
-              rawData[card_id]["_height"] = res.height
-              this.setData({ rawData }, this._getRenderList)
+            if (currentHeight !== rawData[card_id]['_height']) {
+              rawData[card_id]['_height'] = res.height
+              this.setData({rawData}, this._getRenderList)
             }
           })
         } else {
           // 非初始化情况下
           orderArr.forEach((item, index) => {
-            if (!rawData[item]["_rendered"]) {
+            if (!rawData[item]['_rendered']) {
               height.push(this._computeSingleCardHeight(item))
             }
           })
           Promise.all(height).then(res => {
             res.forEach(item => {
-              rawData[item.card_id]["_height"] = item.height
-              rawData[item.card_id]["_rendered"] = true
+              rawData[item.card_id]['_height'] = item.height
+              rawData[item.card_id]['_rendered'] = true
             })
-            this.setData({ rawData }, this._getRenderList)
+            this.setData({rawData}, this._getRenderList)
           })
         }
       }
+    },
+
+    /**
+     * @description 图片预览功能
+     */
+    _imagePreview(event) {
+      let dataset = event.currentTarget.dataset
+      wx.previewImage({
+        urls: dataset.images,
+        current: dataset.currentImage
+      })
     },
 
     /**
@@ -178,18 +210,18 @@ Component({
      */
     _toggleExpand(event) {
       const card_id = event.currentTarget.dataset.cardId
-      const { rawData } = this.data
-      rawData[card_id]["_expandStatus"] = !rawData[card_id]["_expandStatus"]
+      const {rawData} = this.data
+      rawData[card_id]['_expandStatus'] = !rawData[card_id]['_expandStatus']
 
-      this.setData({ rawData }, this._computeCardHeight.bind(this, { id: card_id }))
-      this.triggerEvent("onCardExpanded", { card_id, expand_status: rawData[card_id]["_expandStatus"] })
+      this.setData({rawData}, this._computeCardHeight.bind(this, {id: card_id}))
+      this.triggerEvent('onCardExpanded', {card_id, expand_status: rawData[card_id]['_expandStatus']})
     },
 
     _getRenderList(shouleRecomputeHeight = false) {
       let renderList = []
       let heightArr = []
-      const arrLength = columns
-      const { orderArr, rawData } = this.data
+      const arrLength = _columns
+      const {orderArr, rawData} = this.data
       heightArr = Array(arrLength).fill(0)
 
       // initial render Arr
@@ -200,15 +232,15 @@ Component({
       orderArr.forEach(item => {
         let willPushIndex = heightArr.indexOf(Math.min.apply(null, heightArr))
         renderList[willPushIndex].push(item)
-        heightArr[willPushIndex] += rawData[item]["_height"]
+        heightArr[willPushIndex] += rawData[item]['_height']
       })
 
       // 由于需要 renderList 先去前台渲染完已有 dom 节点之后再来这边计算每个卡片的高度
       if (shouleRecomputeHeight) {
-        this.setData({ renderList }, this._computeCardHeight)
+        this.setData({renderList}, this._computeCardHeight)
         return
       } else {
-        this.setData({ renderList })
+        this.setData({renderList})
       }
     },
 
@@ -217,37 +249,33 @@ Component({
      */
     _getRandomColor() {
       const colorSet = [
-        "#F5B7B1",
-        "#F1948A",
-        "#EC7063",
-        "#E74C3C",
-        "#F7DC6F",
-        "#F1C40F",
-        "#D4AC0D",
-        "#B7950B",
-        "#EDBB99",
-        "#E59866",
-        "#EB984E",
-        "#E67E22",
-        "#D7BDE2",
-        "#C39BD3",
-        "#AF7AC5",
-        "#9B59B6",
-        "#A9CCE3",
-        "#7FB3D5",
-        "#5499C7",
-        "#2980B9",
-        "#A2D9CE",
-        "#73C6B6",
-        "#45B39D",
-        "#16A085"
+        '#F5B7B1',
+        '#F1948A',
+        '#EC7063',
+        '#E74C3C',
+        '#F7DC6F',
+        '#F1C40F',
+        '#D4AC0D',
+        '#B7950B',
+        '#EDBB99',
+        '#E59866',
+        '#EB984E',
+        '#E67E22',
+        '#D7BDE2',
+        '#C39BD3',
+        '#AF7AC5',
+        '#9B59B6',
+        '#A9CCE3',
+        '#7FB3D5',
+        '#5499C7',
+        '#2980B9',
+        '#A2D9CE',
+        '#73C6B6',
+        '#45B39D',
+        '#16A085'
       ]
       let index = Math.floor(Math.random() * (colorSet.length - 1))
       return colorSet[index]
     }
-  },
-
-  attached: function() {
-    // 可以在这里发起网络请求获取插件的数据
   }
 })

@@ -1,13 +1,8 @@
-<!--plugin/components/brickLayout.wxml-->
-
-<import src="../tpl/tpl-default.wxml"/>
-<import src="../tpl/tpl-album.wxml"/>
-
-<view wx:if="{{renderList.length>0}}"  class="list-container">
-   <view wx:for="{{renderList}}" wx:key="{{index}}" wx:for-item="column" class="list-side-box">
-     <template is="list-item-theme_{{tplName}}" data="{{render_list:column,content_list:rawData, defaultExpandStatus : _defaultExpandStatus}}"></template>
+<!-- plugin/components/brickLayout.wxml -->
+<import src="../tpl/tpl-default.wxml" />
+<import src="../tpl/tpl-album.wxml" />
+<view wx:if="{{renderList.length>0}}" class="list-container">
+  <view wx:for="{{renderList}}" wx:key="{{index}}" wx:for-item="column" class="list-side-box">
+    <template is="list-item-theme_{{tplName}}" data="{{render_list:column,content_list:rawData,  _defaultExpandStatus, _imageFillMode}}"></template>
   </view>
 </view>
-
-
-
