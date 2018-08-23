@@ -77,10 +77,10 @@ BrickLayout 晓瀑布流为使用者提供开箱即用的瀑布流布局的一�
       * 说明：数据每条记录的唯一标志
     * **content**  
       * 类型：`string`
-      * 说明：卡片实际记录的内容，暂不支持解析富文本。
+      * 说明：卡片实际记录的内容，不支持解析富文本
     * **backgroundColor**
       * 类型：`string`
-      * 说明：(optional) 每个卡片的背景颜色 如果不填 则为随机色
+      * 说明：(optional) 每个卡片的背景颜色 如果不填，则为随机色。由于字体均为白色，所以不建议使用白色作为背景色
     * **time**
       * 类型：`unix timestamp`
       * 说明：(optional) 记录的时间戳 如果不填默认没有时间显示
@@ -89,13 +89,16 @@ BrickLayout 晓瀑布流为使用者提供开箱即用的瀑布流布局的一�
       * 说明：(optional) 右下角点赞的数量 如果不填默认没有卡片右下角显示
     * **liked**
       * 类型：`bool`
-      * 说明：(optional) 如果需要点赞功能，则需要该变量作为用户是否已经点赞的标志，如果为 false 则代表未点赞，icon 为空心 icon，且可以触发点赞动作；如果为 true 则代表已点赞，icon 为实心 icon，且不可再触发点赞动作。
+      * 说明：(optional) 如果需要点赞功能，则需要该变量作为用户是否已经点赞的标志，如果为 false 则代表未点赞，icon 为空心 icon，且可以触发点赞动作；如果为 true 则代表已点赞，icon 为实心 icon，且不可再触发点赞动作
     * **user**
       * 类型：`Object`
       * 说明：(optional) 如果不传，则不显示卡片用户区
         * 类型：`string` (optional param) `avatar` 用户头像 url 如果不填默认没有头像
         * 类型：`string` (optional param) `username` 用户名 如果不填默认没有用户名
         * 类型：`string` (optional param) `userId` 用户 id， 如果需要点击用户区域相关事件，可以传入 `userId` ,用于相关点击用户区域事件回调
+    * **images**
+      * 类型：`Array<string>`
+      * 说明：(optional) 如果不传，瀑布流则不显示图片，注意图片是位于文字的下方。默认会一张张显示在文字下面
     * **示例值 🌰：**
 
 ```js
@@ -104,7 +107,7 @@ BrickLayout 晓瀑布流为使用者提供开箱即用的瀑布流布局的一�
     id: '1',
     content:
       'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ',
-    backgroundColor: '#fff',
+    backgroundColor: '#AF7AC5',
     time: 1533106010,
     likedCount: 0,
     liked: false,
@@ -112,13 +115,16 @@ BrickLayout 晓瀑布流为使用者提供开箱即用的瀑布流布局的一�
       avatar: 'user_avatar_url',
       name: 'Minya Chan',
       userId: '1'
-    }
+    },
+    images: [
+       'pic_url', 'pic_url', 'pic_url'
+     ]
   },
   {
     id: '2',
     content:
       'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ',
-    backgroundColor: '#fff',
+    backgroundColor: '#AF7AC5',
     time: 1533106010,
     likedCount: 0,
     liked: false,
@@ -126,7 +132,10 @@ BrickLayout 晓瀑布流为使用者提供开箱即用的瀑布流布局的一�
       avatar: 'user_avatar_url',
       name: 'Minya Chan',
       userId: '1'
-    }
+    },
+    images: [
+       'pic_url', 'pic_url'
+     ]
   }
 ]
 ```
@@ -145,14 +154,22 @@ BrickLayout 晓瀑布流为使用者提供开箱即用的瀑布流布局的一�
       * 说明： (optional) 每个卡片默认统一的颜色，如果已经设置了卡片的颜色，优先使用卡片颜色；如果既没有卡片颜色，也没有设置全局背景色，则默认为随机色。即优先级：`card.backgroundColor` > `backgoundColor` > `randomColor`
     * **forceRepaint**
       * 类型： `bool`
-      * 说明： (optional) 是否强制重绘，强制重绘则会使原来的展开状态、高度等等全部重置，数据重新渲染。默认值为 `false`，即默认认为源数据的改变只是追加、变更或者减少数据时，不重置卡片的展开状态和高度等等。 
+      * 说明： (optional) 是否强制重绘，强制重绘则会使原来的展开状态、高度等等全部重置，数据重新渲染。默认值为 `false`，即默认认为源数据的改变只是追加、变更或者减少数据时，不重置卡片的展开状态和高度等等
+    * **columns**
+      * 类型： `number`
+      * 说明： (optional) 瀑布流展示的列数，建议综合考虑一下使用场景的屏幕宽度，默认值为 `2`
+    * **imageFillMode**
+      * 类型： `string`
+      * 说明： (optional) 图片的展示功能，详情请参阅 [微信小程序 Image 的 mode 属性](https://developers.weixin.qq.com/miniprogram/dev/component/image.html)，默认值为 `widthFix`
   * **示例值 🌰：**
 
 ```js
 {
   defaultExpandStatus: false,
   ackgroundColor:  '#ababab',
-  forceRepaint: false
+  forceRepaint: false,
+  columns: 3,
+  imageFillMode: 'widthFix'
 }
 ```
 
