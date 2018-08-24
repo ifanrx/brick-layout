@@ -31,19 +31,23 @@ Component({
       type: Object,
       value: {},
       observer: function(newVal) {
-        let {imageFillMode, columns, theme, Icon, showFullContent, defaultExpandStatus} = newVal
+        if(!newVal){
+          return
+        }
+
+        let defaultExpandStatus = !!newVal.defaultExpandStatus ? newVal.defaultExpandStatus : false;
         let {_tplName, _likeIcon} = this.data
 
-        if (!!imageFillMode) {
-          this.setData({_imageFillMode: imageFillMode})
+        if (!!newVal.imageFillMode) {
+          this.setData({_imageFillMode: newVal.imageFillMode})
         }
 
-        if (!!columns) {
-          _columns = columns
+        if (!!newVal.columns && !isNaN(newVal.columns)) {
+          _columns = newVal.columns
         }
 
-        if (!!theme) {
-          switch (theme) {
+        if (!!newVal.theme) {
+          switch (newVal.theme) {
             case 'album':
               _tplName = 'album'
               _defaultExpandStatus = true
@@ -56,16 +60,17 @@ Component({
           this.setData({_tplName})
         }
 
-        if (!!Icon) {
-          if (!!Icon.fill) {
-            _likeIcon.like = Icon.fill
+        if (!!newVal.icon) {
+          let {icon} = newVal
+          if (!!icon.fill) {
+            _likeIcon.like = icon.fill
           }
-          if (!!Icon.default) {
-            _likeIcon.default = Icon.default
+          if (!!icon.default) {
+            _likeIcon.default = icon.default
           }
           this.setData({_likeIcon})
         }
-        this.setData({_limitContent: !showFullContent})
+        
       }
     },
     // raw dataset
@@ -77,16 +82,20 @@ Component({
         let {rawData} = this.data
         let dataSet = {}
         let orderArr = []
-        let {
-          option: {backgroundColor, forceRepaint, defaultExpandStatus}
-        } = this.properties
+        
+        let {option} = this.properties
+        let backgroundColor = ''
+        let defaultExpandStatus = false
+        let forceRepaint = false
+
+        if(!!option){
+           backgroundColor = !!option.backgroundColor ? option.backgroundColor  : backgroundColor
+           defaultExpandStatus = !!option.defaultExpandStatus ? option.defaultExpandStatus : defaultExpandStatus
+           forceRepaint = !!option.forceRepaint ? option.forceRepaint : forceRepaint
+        }
 
         if (!Array.isArray(newVal)) {
           throw new Error('BrickLayout : dataSet is expecting a Array.')
-        }
-
-        if (forceRepaint && typeof forceRepaint !== 'boolean') {
-          throw new Error('BrickLayout : option.forceRepaint is expecting a Bool.')
         }
 
         newVal.forEach(item => {
@@ -118,7 +127,7 @@ Component({
         })
 
         this.setData(
-          {rawData: dataSet, orderArr, _defaultExpandStatus: !!defaultExpandStatus},
+          {rawData: dataSet, orderArr, _defaultExpandStatus: defaultExpandStatus},
           this._getRenderList.bind(this, true)
         )
         tpl.init.call(this)

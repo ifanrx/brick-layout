@@ -1,6 +1,6 @@
 <template name="list-item-theme_default">
   <view wx:for="{{render_list}}" wx:key="{{item}}" class="list-item" id="card-{{item}}">
-    <view class="list-box {{content_list[item]._expandStatus  ? 'is-expand' : ''}}" style="background-color:{{content_list[item]._background}};" data-card-id="{{content_list[item].id}}" bindtap="onBrickItemTap">
+    <view class="list-box {{content_list[item]._expandStatus  ? 'is-expand' : ''}}" style="background-color:{{content_list[item]._background}};{{!!_fontColor?'color:'+_fontColor:''}}" data-card-id="{{content_list[item].id}}" bindtap="onBrickItemTap">
       <view class="list-box_header" wx:if="{{content_list[item].user}}" catchtap="{{content_list[item].user.userId ? 'onUserAreaTap' : ''}}" data-user-id="{{content_list[item].user.userId}}">
         <view wx:if="{{content_list[item].user.avatar}}" class="user-avatar" style="background-image:url('{{content_list[item].user.avatar}}')"></view>
         <view class="user-info">
