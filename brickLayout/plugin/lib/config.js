@@ -1,4 +1,4 @@
-export const config = {
+export default {
   // color set of topic card
   colorWheel: [
     '#F5B7B1',

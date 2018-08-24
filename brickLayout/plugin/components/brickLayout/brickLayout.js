@@ -1,5 +1,5 @@
 import {utils} from '../../lib/utils'
-import {config} from '../../lib/config'
+import config from '../../lib/config'
 import tpl from '../tpl/tpl'
 
 const DEFAULT_HEIGHT = 182
