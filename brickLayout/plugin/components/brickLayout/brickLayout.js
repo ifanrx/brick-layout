@@ -1,4 +1,5 @@
 import {utils} from '../../lib/utils'
+import {config} from '../../lib/config'
 import tpl from '../tpl/tpl'
 
 const DEFAULT_HEIGHT = 182
@@ -31,11 +32,11 @@ Component({
       type: Object,
       value: {},
       observer: function(newVal) {
-        if(!newVal){
+        if (!newVal) {
           return
         }
 
-        let defaultExpandStatus = !!newVal.defaultExpandStatus ? newVal.defaultExpandStatus : false;
+        let defaultExpandStatus = !!newVal.defaultExpandStatus ? newVal.defaultExpandStatus : false
         let {_tplName, _likeIcon} = this.data
 
         if (!!newVal.imageFillMode) {
@@ -70,7 +71,6 @@ Component({
           }
           this.setData({_likeIcon})
         }
-        
       }
     },
     // raw dataset
@@ -82,16 +82,16 @@ Component({
         let {rawData} = this.data
         let dataSet = {}
         let orderArr = []
-        
+
         let {option} = this.properties
         let backgroundColor = ''
         let defaultExpandStatus = false
         let forceRepaint = false
 
-        if(!!option){
-           backgroundColor = !!option.backgroundColor ? option.backgroundColor  : backgroundColor
-           defaultExpandStatus = !!option.defaultExpandStatus ? option.defaultExpandStatus : defaultExpandStatus
-           forceRepaint = !!option.forceRepaint ? option.forceRepaint : forceRepaint
+        if (!!option) {
+          backgroundColor = !!option.backgroundColor ? option.backgroundColor : backgroundColor
+          defaultExpandStatus = !!option.defaultExpandStatus ? option.defaultExpandStatus : defaultExpandStatus
+          forceRepaint = !!option.forceRepaint ? option.forceRepaint : forceRepaint
         }
 
         if (!Array.isArray(newVal)) {
@@ -130,6 +130,7 @@ Component({
           {rawData: dataSet, orderArr, _defaultExpandStatus: defaultExpandStatus},
           this._getRenderList.bind(this, true)
         )
+
         tpl.init.call(this)
       }
     }
@@ -263,32 +264,7 @@ Component({
      * @description 返回色卡随机背景色
      */
     _getRandomColor() {
-      const colorSet = [
-        '#F5B7B1',
-        '#F1948A',
-        '#EC7063',
-        '#E74C3C',
-        '#F7DC6F',
-        '#F1C40F',
-        '#D4AC0D',
-        '#B7950B',
-        '#EDBB99',
-        '#E59866',
-        '#EB984E',
-        '#E67E22',
-        '#D7BDE2',
-        '#C39BD3',
-        '#AF7AC5',
-        '#9B59B6',
-        '#A9CCE3',
-        '#7FB3D5',
-        '#5499C7',
-        '#2980B9',
-        '#A2D9CE',
-        '#73C6B6',
-        '#45B39D',
-        '#16A085'
-      ]
+      const colorSet = config.colorWheel
       let index = Math.floor(Math.random() * (colorSet.length - 1))
       return colorSet[index]
     }

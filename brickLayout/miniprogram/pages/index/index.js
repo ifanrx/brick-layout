@@ -1,4 +1,3 @@
-var plugin = requirePlugin('myPlugin')
 Page({
   data: {
     dataSet: [
@@ -15,7 +14,10 @@ Page({
         },
         likedCount: 122,
         liked: true,
-        images: ['https://images.ifanr.cn/wp-content/uploads/2018/08/640-90-1024x576.jpeg','https://images.ifanr.cn/wp-content/uploads/2018/08/640-90-1024x576.jpeg']
+        images: [
+          'https://images.ifanr.cn/wp-content/uploads/2018/08/640-90-1024x576.jpeg',
+          'https://images.ifanr.cn/wp-content/uploads/2018/08/640-90-1024x576.jpeg'
+        ]
       },
       {
         id: '123123123',
@@ -57,12 +59,13 @@ Page({
       // showFullContent: true,
       // backgroundColor:"#16A085",
       // forceRepaint: true,
-      defaultExpandStatus: false,
+      // defaultExpandStatus: false,
       // imageFillMode:'aspectFill'
-      columns: 3,
-      icon: {
-        fill: 'https://images.ifanr.cn/wp-content/uploads/2018/08/640-90-1024x576.jpeg'
-      },
+      // columns: 3
+      // icon: {
+      //   fill: 'https://images.ifanr.cn/wp-content/uploads/2018/08/640-90-1024x576.jpeg',
+      //   default:'https://images.ifanr.cn/wp-content/uploads/2018/08/640-90-1024x576.jpeg',
+      // },
       // fontColor:'black'
     }
   },
