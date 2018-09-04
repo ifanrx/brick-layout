@@ -1,6 +1,6 @@
 <template name="list-item-theme_default">
   <view wx:for="{{render_list}}" wx:key="{{item}}" class="list-item" id="card-{{item}}">
-    <view class="list-box {{content_list[item]._expandStatus  ? 'is-expand' : ''}}" style="background-color:{{content_list[item]._background}}" data-card-id="{{content_list[item].id}}" bindtap="onBrickItemTap">
+    <view class="list-box {{content_list[item]._expandStatus  ? 'is-expand' : ''}}" style="background-color:{{content_list[item]._background}};{{!!_fontColor?'color:'+_fontColor:''}}" data-card-id="{{content_list[item].id}}" bindtap="onBrickItemTap">
       <view class="list-box_header" wx:if="{{content_list[item].user}}" catchtap="{{content_list[item].user.userId ? 'onUserAreaTap' : ''}}" data-user-id="{{content_list[item].user.userId}}">
         <view wx:if="{{content_list[item].user.avatar}}" class="user-avatar" style="background-image:url('{{content_list[item].user.avatar}}')"></view>
         <view class="user-info">
@@ -12,17 +12,26 @@
           </view>
         </view>
       </view>
-      <view class="list-box_content">{{content_list[item].content}}</view>
+      <view class="list-box_content">
+        {{content_list[item].content}}
+        <template is="images-viewer" data="{{images:content_list[item].images,_imageFillMode}}"></template>
+      </view>
       <view class="list-box_footer">
-        <view wx:if="{{content_list[item].likedCount === 0 || content_list[item].likedCount}}" class="approve-btn" catchtap="{{!content_list[item].liked ? 'onLikeButtonTap' : ''}}" data-card-id="{{item}}">
-          <!-- <image class="approve-btn-icon" src="{{content_list[item].like_icon}}" /> -->
-          <image class="approve-btn-icon" src="{{content_list[item]._likeIcon}}" />
-          {{content_list[item].likedCount}}
+        <view class="approve-btn" catchtap="onLikeButtonTap" data-card-id="{{item}}">
+          <view class="approve-btn_wrapper" wx:if="{{content_list[item].likedCount === 0 || content_list[item].likedCount}}">
+            <image class="approve-btn-icon" src="{{content_list[item].liked ? _likeIcon['like'] : _likeIcon['default'] }}" />
+            {{content_list[item].likedCount}}
+          </view>
         </view>
-        <view wx:if="{{!defaultExpandStatus}}" class="expand-btn" catchtap='_toggleExpand' data-card-id="{{content_list[item].id}}">
+        <view wx:if="{{!_defaultExpandStatus}}" class="expand-btn" catchtap='_toggleExpand' data-card-id="{{content_list[item].id}}">
           {{ content_list[item]._expandStatus ? '收起' : '展开'}}
         </view>
       </view>
     </view>
+  </view>
+</template>
+<template name="images-viewer">
+  <view wx:if="{{ !!images && !!images.length}}" class="media-previewer">
+    <image wx:for="{{ images }}" wx:key="{{images}}" src="{{item}}" mode="{{_imageFillMode}}" data-images="{{images}}" data-current-image="{{item}}" catchtap='_imagePreview'></image>
   </view>
 </template>

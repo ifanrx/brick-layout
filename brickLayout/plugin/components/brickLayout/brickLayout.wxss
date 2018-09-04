@@ -1,109 +1,124 @@
 /* plugin/components/brickLayout.wxss */
 /* list container */
 .list-container {
-    display: flex;
-    flex-direction: row;
-    padding: 0 24rpx 100rpx;
-  }
-  
-  .list-side-box {
-    display: flex;
-    flex: 1;
-    flex-direction: column;
-  }
-  
-  .list-side-box {
-    margin-right: 24rpx;
-  }
-  
-  .list-side-box:last-child{
-    margin-right: 0;
-  }
-  
-  .list-item {
-    break-inside: avoid;
-    box-sizing: border-box;
-    padding-bottom: 24rpx;
-  }
-  
-  /* list-box themeA */
-  .list-box {
-    position: relative;
-    padding-bottom: 80rpx; /* list-box-footer */
-    border-radius: 4px;
-    color: #fff;
-  }
-  
-  .list-box_header {
-    height: 64rpx;
-    padding: 16rpx;
-    margin-bottom: 20rpx;
-    overflow: hidden;
-  }
-  
-  .list-box_header .user-avatar {
-    float: left;
-    width: 60rpx;
-    height: 60rpx;
-    border-radius: 50%;
-    background-size: cover;
-  }
-  
-  .list-box_header .user-info {
-    float: left;
-    width: 220rpx;
-    font-size: 12px;
-    font-weight: bold;
-    margin-left: 12rpx;
-  }
-  .list-box_header .user-info .user-name {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    -webkit-line-clamp: 1;
-    -webkit-box-orient: vertical;
-    height: 40rpx;
-    line-height: 44rpx;
-  }
-  
-  .list-box_header .user-info .time {
-    font-size: 10px;
-    font-weight: 400;
-  }
-  
-  .list-box.is-expand .list-box_content {
-    height: auto;
-  }
-  
-  .list-box_content {
-    height: 144rpx;
-    min-height: 144rpx;
-    padding: 0 16rpx;
-    font-size: 30rpx;
-    line-height: 48rpx;
-    overflow: hidden;
-  }
-  
-  .list-box_footer {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 76rpx;
-    padding: 0 16rpx;
-    margin-top: 22rpx;
-    font-size: 12px;
-  }
-  .expand-btn {
-    width: 100rpx;
-    height: 40rpx;
-    text-align: right;
-  }
-  .approve-btn .approve-btn-icon {
-    width: 28rpx;
-    height: 28rpx;
-    margin-left: 5px;
-  }
-  
+  display: flex;
+  flex-direction: row;
+  padding: 0 24rpx 100rpx;
+}
+
+.list-side-box {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+
+.list-side-box {
+  margin-right: 24rpx;
+}
+
+.list-side-box:last-child {
+  margin-right: 0;
+}
+
+.list-item {
+  break-inside: avoid;
+  box-sizing: border-box;
+  padding-bottom: 24rpx;
+}
+
+/* list-box themeA */
+.list-box {
+  position: relative;
+  padding: 8px;
+  border-radius: 4px;
+  color: #fff;
+}
+
+.list-box_header {
+  height: 32px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+
+.list-box_header .user-avatar {
+  float: left;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-size: cover;
+}
+
+.list-box_header .user-info {
+  font-size: 12px;
+  font-weight: bold;
+  margin-left: 34px;
+}
+
+.list-box_header .user-info .user-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  height: 20px;
+}
+
+.list-box_header .user-info .time {
+  font-size: 10px;
+  font-weight: 400;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  height: 20px;
+}
+
+.list-box.is-expand .list-box_content {
+  height: auto;
+}
+
+.list-box_content {
+  height: 71px;
+  min-height: 71px;
+  font-size: 15px;
+  line-height: 24px;
+  overflow: hidden;
+}
+
+.list-box_footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 12px;
+}
+
+.expand-btn {
+  line-height: 20px;
+  font-size: 12px;
+  margin-top: 16px;
+  text-align: right;
+}
+
+.approve-btn {
+  font-size: 12px;
+}
+
+.approve-btn .approve-btn_wrapper {
+  margin-top: 16px;
+  min-width: 43px;
+}
+
+.approve-btn .approve-btn-icon {
+  width: 14px;
+  height: 14px;
+  margin-left: 5px;
+}
+
+.media-previewer image {
+  margin-top: 8px;
+  width: 100%;
+  border-radius: 4px;
+}
+
+.media-previewer image:first-child {
+  margin-top: 0;
+}

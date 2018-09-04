@@ -4,7 +4,7 @@
 
 BrickLayout 晓瀑布流为使用者提供开箱即用的瀑布流布局的一种可行性的方案，使用者仅需要按照对应所需的字段传入瀑布流组件，即可快速实现瀑布流布局。未来的瀑布流组件将会提供更多样式、适用更多场景的瀑布流模板，敬请期待！希望有更多场景推荐，希望有更多内容定制，欢迎留言或者告诉我们 👏
 
-![组件示例](demo.gif)
+![组件于未来实验室示例](demo.gif)
 
 ## How BrickLayout ✨
 
@@ -24,20 +24,22 @@ BrickLayout 晓瀑布流为使用者提供开箱即用的瀑布流布局的一�
 
   ![brickLayout 展现实际效果](flex.png)
 
-## why BrickLayout 🌟
+## why BrickLayout ✨
 
 通过 BrickLayout 晓瀑布流使用者无须在关心实际的瀑布流布局实现，也无需关心前端的实际样式布局，更加专注于业务逻辑开发。未来的 BrickLayout 晓瀑布流将为使用者提供更加多样的模板，适用于不同场景之下的瀑布流布局。
+
+  ![brickLayout 展现实际效果](demo.png)
 
 ### 使用
 
 1. 在微信小程序管理后台中，按 APPID `wx3c042630f3cdc175` 搜索到该插件，点击添加，即可在代码中使用 `brickLayout`。
 
-2. 在 `app.json` 里，声明该插件的引入，目前该插件为 `0.1.1`，`provider` 为该插件的 APPID，`brickLayout` 为自定义的插件名称。
+2. 在 `app.json` 里，声明该插件的引入，目前该插件为 `0.2.0`，`provider` 为该插件的 APPID，`brickLayout` 为自定义的插件名称。
 
 ```json
 "plugins": {
   "brickLayout": {
-    "version": "0.1.1",
+    "version": "0.2.0",
     "provider": "wx3c042630f3cdc175"
   }
 }
@@ -77,10 +79,10 @@ BrickLayout 晓瀑布流为使用者提供开箱即用的瀑布流布局的一�
       * 说明：数据每条记录的唯一标志
     * **content**  
       * 类型：`string`
-      * 说明：卡片实际记录的内容，暂不支持解析富文本。
+      * 说明：(optional) 卡片实际记录的内容，不支持解析富文本
     * **backgroundColor**
       * 类型：`string`
-      * 说明：(optional) 每个卡片的背景颜色 如果不填 则为随机色
+      * 说明：(optional) 每个卡片的背景颜色 如果不填，则为随机色。由于字体均为白色，不建议使用白色作为背景色
     * **time**
       * 类型：`unix timestamp`
       * 说明：(optional) 记录的时间戳 如果不填默认没有时间显示
@@ -89,13 +91,16 @@ BrickLayout 晓瀑布流为使用者提供开箱即用的瀑布流布局的一�
       * 说明：(optional) 右下角点赞的数量 如果不填默认没有卡片右下角显示
     * **liked**
       * 类型：`bool`
-      * 说明：(optional) 如果需要点赞功能，则需要该变量作为用户是否已经点赞的标志，如果为 false 则代表未点赞，icon 为空心 icon，且可以触发点赞动作；如果为 true 则代表已点赞，icon 为实心 icon，且不可再触发点赞动作。
+      * 说明：(optional) 如果需要点赞功能，则需要该变量作为用户是否已经点赞的标志，如果为 false 则代表未点赞，icon 为空心 icon，且可以触发点赞动作；如果为 true 则代表已点赞，icon 为实心 icon，且不可再触发点赞动作
     * **user**
       * 类型：`Object`
       * 说明：(optional) 如果不传，则不显示卡片用户区
         * 类型：`string` (optional param) `avatar` 用户头像 url 如果不填默认没有头像
         * 类型：`string` (optional param) `username` 用户名 如果不填默认没有用户名
         * 类型：`string` (optional param) `userId` 用户 id， 如果需要点击用户区域相关事件，可以传入 `userId` ,用于相关点击用户区域事件回调
+    * **images**
+      * 类型：`Array<string>`
+      * 说明：(optional) 如果不传，瀑布流则不显示图片，注意图片是位于文字的下方。默认会一张张显示在文字下面
     * **示例值 🌰：**
 
 ```js
@@ -104,7 +109,7 @@ BrickLayout 晓瀑布流为使用者提供开箱即用的瀑布流布局的一�
     id: '1',
     content:
       'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ',
-    backgroundColor: '#fff',
+    backgroundColor: '#AF7AC5',
     time: 1533106010,
     likedCount: 0,
     liked: false,
@@ -112,13 +117,16 @@ BrickLayout 晓瀑布流为使用者提供开箱即用的瀑布流布局的一�
       avatar: 'user_avatar_url',
       name: 'Minya Chan',
       userId: '1'
-    }
+    },
+    images: [
+       'pic_url', 'pic_url', 'pic_url'
+     ]
   },
   {
     id: '2',
     content:
       'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ',
-    backgroundColor: '#fff',
+    backgroundColor: '#AF7AC5',
     time: 1533106010,
     likedCount: 0,
     liked: false,
@@ -126,7 +134,10 @@ BrickLayout 晓瀑布流为使用者提供开箱即用的瀑布流布局的一�
       avatar: 'user_avatar_url',
       name: 'Minya Chan',
       userId: '1'
-    }
+    },
+    images: [
+       'pic_url', 'pic_url'
+     ]
   }
 ]
 ```
@@ -145,14 +156,35 @@ BrickLayout 晓瀑布流为使用者提供开箱即用的瀑布流布局的一�
       * 说明： (optional) 每个卡片默认统一的颜色，如果已经设置了卡片的颜色，优先使用卡片颜色；如果既没有卡片颜色，也没有设置全局背景色，则默认为随机色。即优先级：`card.backgroundColor` > `backgoundColor` > `randomColor`
     * **forceRepaint**
       * 类型： `bool`
-      * 说明： (optional) 是否强制重绘，强制重绘则会使原来的展开状态、高度等等全部重置，数据重新渲染。默认值为 `false`，即默认认为源数据的改变只是追加、变更或者减少数据时，不重置卡片的展开状态和高度等等。 
+      * 说明： (optional) 是否强制重绘，强制重绘则会使原来的展开状态、高度等等全部重置，数据重新渲染。默认值为 `false`，即默认认为源数据的改变只是追加、变更或者减少数据时，不重置卡片的展开状态和高度等等
+    * **columns**
+      * 类型： `number`
+      * 说明： (optional) 瀑布流展示的列数，建议综合考虑一下使用场景的屏幕宽度，默认值为 `2`，如果传入 `0` 是无效的
+    * **imageFillMode**
+      * 类型： `string`
+      * 说明： (optional) 图片的展示功能，详情请参阅 [微信小程序 Image 的 mode 属性](https://developers.weixin.qq.com/miniprogram/dev/component/image.html)，默认值为 `widthFix`
+    * **icon**
+      * 类型： `Object`
+      * 说明： (optional) 支持自定义图标的功能，仅支持上传在线图片 icon, 支持所有 wx.image 组件支持的文件格式。
+        * fill：(optional) 卡片点赞后的样式，即原示例中实心的图标样式。
+        * default: (optional) 卡片默认图标延时，即原示例中空心的图标样式。
+    * **fontColor**
+      * 类型：`string`
+      * 说明： (optional) 卡片字体颜色
   * **示例值 🌰：**
 
 ```js
 {
   defaultExpandStatus: false,
   ackgroundColor:  '#ababab',
-  forceRepaint: false
+  forceRepaint: false,
+  columns: 3,
+  imageFillMode: 'widthFix',
+  icon:{
+    fill:'xxx.com/icon-full.svg',
+    default:'xxx.com/icon-default.svg'
+  },
+  fontColor:'#000'
 }
 ```
 
@@ -239,3 +271,17 @@ onCardExpanded:function(event){
   console.log("expand call back")
 },
 ```
+
+### 版本修改说明 🎉
+
+* 0.1.0
+  * init！😜
+
+* 0.1.1
+  * 修复空数组提示错误的问题 😢
+
+* 0.2.0
+  * 新增图片展示功能，展示于文字下方 😯
+  * 新增自定义列数功能 😏
+  * 新增图标以及字体颜色自定义 😆
+  * 适配 ipad 下的小程序应用 😝
