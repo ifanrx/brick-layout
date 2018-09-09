@@ -115,7 +115,7 @@ BrickLayout 晓瀑布流为使用者提供开箱即用的瀑布流布局的一�
     liked: false,
     user: {
       avatar: 'user_avatar_url',
-      name: 'Minya Chan',
+      username: 'Minya Chan',
       userId: '1'
     },
     images: [
@@ -132,7 +132,7 @@ BrickLayout 晓瀑布流为使用者提供开箱即用的瀑布流布局的一�
     liked: false,
     user: {
       avatar: 'user_avatar_url',
-      name: 'Minya Chan',
+      username: 'Minya Chan',
       userId: '1'
     },
     images: [
@@ -176,7 +176,7 @@ BrickLayout 晓瀑布流为使用者提供开箱即用的瀑布流布局的一�
 ```js
 {
   defaultExpandStatus: false,
-  ackgroundColor:  '#ababab',
+  backgroundColor:  '#ababab',
   forceRepaint: false,
   columns: 3,
   imageFillMode: 'widthFix',
